@@ -39,58 +39,12 @@ formats = [
         'fill':       {'patternType': "solid", 'fgColor': colors_styling['title_parameter']},
         'border':     {'style': 'thin', 'color': "000000"}
     },
-{
+    {
         'name':       'title_attributes',
         'font':       {'name': 'Calibri', 'bold': False, 'size': 10},
         'alignment':  {'horizontal': 'center', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
         'fill':       {'patternType': "solid", 'fgColor': colors_styling['title_attributes']},
         'border':     {'style': 'thin', 'color': "000000"}
     },
-
-
-
-
 ]
 
-#
-#
-#
-#
-# title_format = workbook.add_format({
-#     'text_wrap': True,
-#     'bold': True,
-#     'align': 'center',
-#     'valign': 'vcenter',
-#     'border': 1
-# })
-#
-# default_text = workbook.add_format({
-#     'text_wrap': True,
-#     'align': 'left'
-# })
-#
-# default_cell = workbook.add_format({
-#     'text_wrap': True,
-#     'align': 'center',
-#     'valign': 'vcenter'
-# })
-#
-# grey_color_text = workbook.add_format({
-#     'bg_color': '#f2f2f2',
-#     'text_wrap': True,
-#     'align': 'left'
-# })
-#
-# dark_color_text = workbook.add_format({
-#     'bg_color': '#8e8e8e',
-#     'text_wrap': True,
-#     'align': 'left'
-# })
-#
-# dark_color_cell = workbook.add_format({
-#     'bg_color': '#8e8e8e',
-#     'text_wrap': True,
-#     'align': 'center',
-#     'valign': 'vcenter'
-# })
-#
