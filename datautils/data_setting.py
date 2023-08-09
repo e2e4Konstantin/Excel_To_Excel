@@ -63,9 +63,25 @@ class SourceData:
         self.df.drop(names, axis=1, inplace=True)
         # print(self.df.columns)
 
+    def get_cell_str_value(self, row, column) -> str:
+        # value: str = "" if pd.isnull(tmp_val) else tmp_val
+        if row >= 0 and column >= 0:
+            src_value = self.df.iat[row, column]
+            if pandas.isna(src_value):
+                return ""
+            match src_value:
+                case int() | float():
+                    return str(src_value)
+                case str():
+                    return " ".join(src_value.split())
+                case _:
+                    return str(src_value or "").strip()
+        return ""
+
 
 if __name__ == "__main__":
-    path = r"C:\Users\kazak.ke\PycharmProjects\Quotes_Parsing\output"
+    # path = r"C:\Users\kazak.ke\PycharmProjects\Quotes_Parsing\output"
+    path = r"F:\Kazak\Google Диск\1_KK\Job_CNAC\1_targets\3_Reverse_to_excel"
     file = r"template_all_output.xlsx"
     sheet = r"Tables"
     data = SourceData("T", file, path, sheet, skip_rows=1)

@@ -1,4 +1,4 @@
-from mainseting import data_bank
+from data_bank_setting import data_bank
 from datautils import SourceData
 import gc
 

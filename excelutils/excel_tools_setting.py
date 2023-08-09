@@ -75,7 +75,7 @@ class ExcelControl(Stuff):
         self.book and self.book.create_sheet(".")
 
     def create_sheets(self, sheets_name: tuple[str] = None):
-        self.book and sheets_name and [self.book.create_sheet(name) for name in sheets_name]
 
+        self.book and sheets_name and [self.book.create_sheet(name) for name in sheets_name]
         if len(self.book.worksheets) > 1 and ("." in self.book.sheetnames):
             self.book.remove(self.book["."])
