@@ -21,9 +21,9 @@ class Stuff:
         return self.column_number.get(column_name, None)
 
 
-class ExcelControl(Stuff):
+class ExcelControl:             # (Stuff)
     def __init__(self, file_name: str = None, file_path: str = None):
-        super().__init__()
+        # super().__init__()
         self.file_name = file_name
         self.file_path = file_path
         self.full_name = get_full_file_name(file_name, file_path)

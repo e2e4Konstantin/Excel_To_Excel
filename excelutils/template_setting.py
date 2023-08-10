@@ -1,9 +1,9 @@
 
 headers = {
-    'A:O': ['Шифр главы', 'Шифр сборника', 'Шифр отдела', 'Шифр раздела', 'Шифр таблицы', 'Шифр расценки',
+    'A:O': ['глава', 'сборник', 'отдел', 'раздел', 'таблица', 'расценка',
             'Наименование главы, сборника, отдела, раздела, таблицы, расценки', 'Измеритель',
-            'Статистика применения по объектам жилищного строительства', 'Подлежит параметризации', 'Связанные расценки',
-            'Шифры родительских расценок', 'алгоритм', 'элемент', 'материал'],
+            'стат.', 'флаг.пар', 'основная',
+            'родитель', 'алгоритм', 'элемент', 'материал'],
 
     'P:T': ['от', 'до', 'ед.изм.', 'шаг', 'тип'],
 
@@ -11,45 +11,52 @@ headers = {
     'N1': 'Атрибуты',
     'P1': 'Название_параметра',
 
-    'K': 'Связанные расценки',
-    'L': 'Шифры родительских расценок',
-    'M': 'Тип алгоритма',
+    'K': 'основная',
+    'L': 'родитель',
+    'M': 'алгоритм',
     'N': 'элемент',
     'O': 'материал',
 }
 
-width_columns = {'A': 8, 'B': 10, 'C': 12, 'E': 15, 'F': 10, 'G': 80, 'H': 15, 'I': 16, 'J': 10, 'K': 15}
+width_columns = {'A': 4, 'B': 4, 'C': 4, 'D': 4, 'E': 8, 'F': 7, 'G': 45, 'H': 7, 'I': 7, 'J': 7, 'K': 15}
 
 
-colors_styling = {'lavender': 'E6E6FA', 'thistle': '00D8BFD8', 'title_basic': "00FAFAE6", 'title_attributes': "00daeef3", 'title_parameter': "00fde9d9", 'c3': "0099CC00", 'c4': "00FFCC00", 'c5': "000066CC", 'c6': "00666699", 'c7': "00C0C0C0", 'c8': "00FF99CC"}
+colors_styling = {'table_name': 'E0EAF5', 'attributes': 'F1F1F9', 'parameters': '00F6F3F6', 'title_basic': "00FAFAF4", 'title_attributes': "00daeef3", 'title_parameter': "00fde9d9", 'c3': "0099CC00", 'c4': "00FFCC00", 'c5': "000066CC", 'c6': "00666699", 'c7': "00C0C0C0", 'c8': "00FF99CC"}
 
 formats = [
     {
         'name':       'title_basic',
-        'font':       {'name': 'Calibri', 'bold': True, 'size': 10},
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
         'alignment':  {'horizontal': 'center', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
         'fill':       {'patternType': "solid", 'fgColor': colors_styling['title_basic']},
         'border':     {'style': 'thin', 'color': "000000"}
     },
     {
         'name':       'title_parameter',
-        'font':       {'name': 'Calibri', 'bold': False, 'size': 10},
-        'alignment':  {'horizontal': 'center', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
-        'fill':       {'patternType': "solid", 'fgColor': colors_styling['title_parameter']},
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
+        'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
+        'fill':       {'patternType': "solid", 'fgColor': colors_styling['parameters']},
         'border':     {'style': 'thin', 'color': "000000"}
     },
     {
         'name':       'title_attributes',
-        'font':       {'name': 'Calibri', 'bold': False, 'size': 10},
-        'alignment':  {'horizontal': 'center', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
-        'fill':       {'patternType': "solid", 'fgColor': colors_styling['title_attributes']},
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
+        'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': False, 'shrink_to_fit': False, 'indent': 0},
+        'fill':       {'patternType': "solid", 'fgColor': colors_styling['attributes']},
         'border':     {'style': 'thin', 'color': "000000"}
     },
-{
+    {
         'name':       'line_table',
-        'font':       {'name': 'Calibri', 'bold': False, 'size': 10},
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
         'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': False, 'shrink_to_fit': False, 'indent': 0},
         'fill':       {'patternType': None, 'fgColor': colors_styling['title_attributes']},
+        'border':     {'style': None, 'color': "000000"}
+    },
+{
+        'name':       'table_name',
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
+        'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': False, 'shrink_to_fit': False, 'indent': 0},
+        'fill':       {'patternType': "solid", 'fgColor': colors_styling['table_name']},
         'border':     {'style': None, 'color': "000000"}
     },
 

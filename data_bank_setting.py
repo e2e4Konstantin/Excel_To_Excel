@@ -7,3 +7,6 @@ data_bank: dict[str: SourceData] = {
     "parameters": None
 }
 
+
+
+
