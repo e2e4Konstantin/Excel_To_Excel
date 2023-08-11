@@ -4,6 +4,7 @@ from openpyxl.utils.cell import column_index_from_string
 from openpyxl.worksheet import worksheet
 import re
 from excelutils import headers, width_columns, formats
+from common_data import QuoteInfo
 
 
 # https://stackoverflow.com/questions/27133731/folding-multiple-rows-with-openpyxl
@@ -73,13 +74,13 @@ def create_table_header(sheet: worksheet, table_info: tuple[str, str, str, str],
 
     column = column_index_from_string('K')
     sheet.cell(row=row - 1, column=column).value = headers['K1']
-    sheet.cell(row=row - 1, column=column).style = 'line_table'
+    sheet.cell(row=row - 1, column=column).style = 'further_quotes'
     sheet.merge_cells(start_row=row - 1, start_column=column, end_row=row - 1, end_column=column + 2)
 
     sheet.cell(row=row, column=column_index_from_string('K')).value = headers['K']
     sheet.cell(row=row, column=column_index_from_string('L')).value = headers['L']
     sheet.cell(row=row, column=column_index_from_string('M')).value = headers['M']
-    range_decorating(sheet, row, ['K', 'L', 'M'], 'line_table')
+    range_decorating(sheet, row, ['K', 'L', 'M'], 'further_quotes')
 
     column = column_index_from_string('N')
     sheet.cell(row=row - 1, column=column).value = headers['N1']
@@ -128,5 +129,33 @@ def create_table_header(sheet: worksheet, table_info: tuple[str, str, str, str],
                 sheet.merge_cells(start_row=row - 1, start_column=column, end_row=row - 1,
                                   end_column=column + column_delta)
                 column += column_delta + 1
-    sheet.append(["."])
+    # sheet.append(["."])
 
+
+def put_table_to_sheet(sheet: worksheet, table_info: tuple[str, str, str, str], row: int):
+    """ На лист sheet в строку row, пишет информацию о таблице table_info.
+     Присваивает группу """
+    sheet.row_dimensions.group(row, row, outline_level=1)
+    create_table_header(sheet, table_info, row)
+
+
+def create_quote_line(sheet: worksheet, quote_info: QuoteInfo, row: int):
+    """ На лист sheet в строку row, информацию table_info """
+    print(row, quote_info)
+    sheet.cell(row=row, column=column_index_from_string('E')).value = quote_info[0]  # код таблицы
+    sheet.cell(row=row, column=column_index_from_string('F')).value = quote_info[1]
+    sheet.cell(row=row, column=column_index_from_string('G')).value = quote_info[2]
+    sheet.cell(row=row, column=column_index_from_string('H')).value = quote_info[3]
+    sheet.cell(row=row, column=column_index_from_string('I')).value = int(quote_info[4]) if quote_info[4].isdigit() else ""
+    sheet.cell(row=row, column=column_index_from_string('J')).value = '++'
+
+    range_decorating(sheet, row, ['E', 'F', 'G', 'H', 'I', 'J'], 'quote_line')
+    sheet.cell(row=row, column=column_index_from_string('I')).font = Font(name='Calibri', bold=False, size=8, color="000000")
+    sheet.cell(row=row, column=column_index_from_string('I')).alignment = Alignment(horizontal='right')
+    sheet.cell(row=row, column=column_index_from_string('J')).alignment = Alignment(horizontal='center')
+
+def put_quote_to_sheet(sheet: worksheet, quote_info: QuoteInfo, row: int):
+    """ На лист sheet в строку row, пишет информацию о расценке quote_info.
+     Присваивает группу """
+    sheet.row_dimensions.group(row, row, outline_level=2)
+    create_quote_line(sheet, quote_info, row)

@@ -1,9 +1,9 @@
+print(f"begin ->> data_setting.py SourceData")
 import sys
 import pandas
 import gc
 from filesutils import get_full_file_name
-from mainseting import console_colors
-
+from colord_setting import console_colors
 
 class SourceData:
     def __init__(self, data_frame_name: str = None, file_name: str = None, file_path: str = None,
@@ -11,8 +11,8 @@ class SourceData:
         # -- dataframe
         self.name = data_frame_name if data_frame_name and len(data_frame_name) > 0 else None
         self.df: pandas.DataFrame() = None  # ссылка на массив данных
-        self.row_max = 0  # максимальный индекс строки
-        self.column_max = 0  # максимальный индекс колонки
+        self.row_max = 0                    # максимальный индекс строки
+        self.column_max = 0                 # максимальный индекс колонки
         # -- читаем данные из файла excel в массив
         self.get_data_from_excel(file_name, file_path, sheet_name, skip_rows, what_columns)
 
@@ -94,3 +94,6 @@ if __name__ == "__main__":
 
     del data
     gc.collect()
+
+
+print(f"end ->> data_setting.py SourceData")

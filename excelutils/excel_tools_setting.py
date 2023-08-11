@@ -1,27 +1,9 @@
 import openpyxl
 from filesutils import get_full_file_name, does_file_in_use
-from mainseting import console_colors
+from colord_setting import console_colors
 
 
-class Stuff:
-    def __init__(self, *args, **kwargs):
-        self.column_number = {}
-        self.column_number_generate()
-
-    def column_number_generate(self):
-        alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-        alphabet.extend([alphabet[0] + v for v in alphabet])
-        lc_alphabet = list('abcdefghijklmnopqrstuvwxyz')
-        lc_alphabet.extend([lc_alphabet[0] + v for v in lc_alphabet])
-        self.column_number = {v: i+1 for i, v in enumerate(alphabet)}
-        self.column_number.update({v: i+1 for i, v in enumerate(lc_alphabet)})
-
-    def get_column_number(self, column_name: str) -> int | None:
-        """Возвращает номер столбца по букве"""
-        return self.column_number.get(column_name, None)
-
-
-class ExcelControl:             # (Stuff)
+class ExcelControl:
     def __init__(self, file_name: str = None, file_path: str = None):
         # super().__init__()
         self.file_name = file_name
@@ -79,3 +61,7 @@ class ExcelControl:             # (Stuff)
         self.book and sheets_name and [self.book.create_sheet(name) for name in sheets_name]
         if len(self.book.worksheets) > 1 and ("." in self.book.sheetnames):
             self.book.remove(self.book["."])
+
+    def set_sheet_grid(self, grid: bool = True):
+        if self.book and self.sheet:
+            self.sheet.sheet_view.showGridLines = grid

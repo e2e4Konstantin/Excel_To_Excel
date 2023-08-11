@@ -1,5 +1,5 @@
-from data_bank_setting import data_bank
-from datautils import SourceData
+from datautils.data_setting import SourceData
+from common_data import data_bank
 import gc
 
 
@@ -23,7 +23,8 @@ def get_quotes(file_name: str = None, file_path: str = None, sheet_name: str = N
         column_names = ["table", "cod", "title", "measure", "stat", "flag", "basic_slave", "link_cod"]
         c_types = {"stat": int, }
         src_data.set_columns_name_type_column_data(column_names, c_types)
-        # print(src_data.df.info())
+        print(src_data.df.info())
+        print(src_data.df.to_string())
         return src_data
     return None
 
@@ -44,7 +45,7 @@ def get_parameters(file_name: str = None, file_path: str = None, sheet_name: str
     src_data = SourceData("Options", file_name, file_path, sheet_name, skip_rows=skip_rows, what_columns="B:H")
     if not src_data.df.empty:
         column_names = ["quote", "name", "left", "right", "measure", "step", "type"]
-        c_types = {} # "type": int,
+        c_types = {}  # "type": int,
         src_data.set_columns_name_type_column_data(column_names, c_types)
         # src_data.df.columns = column_names
         # print(src_data.df.info())
@@ -52,7 +53,7 @@ def get_parameters(file_name: str = None, file_path: str = None, sheet_name: str
     return None
 
 
-def data_preparation(file_name: str = None, file_path: str = None):
+def get_data_from_file(file_name: str = None, file_path: str = None):
     data_bank["tables"] = get_tables(file_name, file_path, sheet_name="Tables", skip_rows=1)
     data_bank["quotes"] = get_quotes(file_name, file_path, sheet_name="Quote", skip_rows=1)
     data_bank["attributes"] = get_attributes(file_name, file_path, sheet_name="Attributes", skip_rows=1)
@@ -67,8 +68,9 @@ def free_data_bank():
 
 
 if __name__ == "__main__":
-    path = r"C:\Users\kazak.ke\PycharmProjects\Quotes_Parsing\output"
-    file = r"template_all_output.xlsx"
-    data_preparation(file, path)
+    path = r"F:\Kazak\GoogleDrive\1_KK\Job_CNAC\Python_projects\Ex_to_Ex\src"
+    file = r"template_all_output_xxx.xlsx"
+
+    get_data_from_file(file, path)
     print(f"<< {'-' * 70} >>")
     free_data_bank()

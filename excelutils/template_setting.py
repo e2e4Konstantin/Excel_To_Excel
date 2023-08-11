@@ -18,10 +18,10 @@ headers = {
     'O': 'материал',
 }
 
-width_columns = {'A': 4, 'B': 4, 'C': 4, 'D': 4, 'E': 8, 'F': 7, 'G': 45, 'H': 7, 'I': 7, 'J': 7, 'K': 15}
+width_columns = {'A': 4, 'B': 4, 'C': 4, 'D': 4, 'E': 8, 'F': 7, 'G': 45, 'H': 7, 'I': 7, 'J': 7, 'K': 7, 'L': 7, 'M': 7}
 
 
-colors_styling = {'table_name': 'E0EAF5', 'attributes': 'F1F1F9', 'parameters': '00F6F3F6', 'title_basic': "00FAFAF4", 'title_attributes': "00daeef3", 'title_parameter': "00fde9d9", 'c3': "0099CC00", 'c4': "00FFCC00", 'c5': "000066CC", 'c6': "00666699", 'c7': "00C0C0C0", 'c8': "00FF99CC"}
+colors_styling = {'further_quotes': 'F9FAFA', 'table_name': 'E0EAF5', 'attributes': 'F1F1F9', 'parameters': 'EFF6F2', 'title_basic': "00FAFAF4", 'title_attributes': "00daeef3", 'title_parameter': "00fde9d9", 'c3': "0099CC00", 'c4': "00FFCC00", 'c5': "000066CC", 'c6': "00666699", 'c7': "00C0C0C0", 'c8': "00FF99CC"}
 
 formats = [
     {
@@ -29,21 +29,29 @@ formats = [
         'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
         'alignment':  {'horizontal': 'center', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
         'fill':       {'patternType': "solid", 'fgColor': colors_styling['title_basic']},
-        'border':     {'style': 'thin', 'color': "000000"}
+        'border':     {'style': 'thin', 'color': "A0A0A0"}
+    },
+    #
+    {
+        'name':       'further_quotes',
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
+        'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
+        'fill':       {'patternType': "solid", 'fgColor': colors_styling['further_quotes']},
+        'border':     {'style': 'thin', 'color': "A0A0A0"}
     },
     {
         'name':       'title_parameter',
         'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
         'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': True, 'shrink_to_fit': False, 'indent': 0},
         'fill':       {'patternType': "solid", 'fgColor': colors_styling['parameters']},
-        'border':     {'style': 'thin', 'color': "000000"}
+        'border':     {'style': 'thin', 'color': "A0A0A0"}
     },
     {
         'name':       'title_attributes',
         'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
         'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': False, 'shrink_to_fit': False, 'indent': 0},
         'fill':       {'patternType': "solid", 'fgColor': colors_styling['attributes']},
-        'border':     {'style': 'thin', 'color': "000000"}
+        'border':     {'style': 'thin', 'color': "A0A0A0"}
     },
     {
         'name':       'line_table',
@@ -54,11 +62,18 @@ formats = [
     },
 {
         'name':       'table_name',
-        'font':       {'name': 'Calibri', 'bold': False, 'size': 8},
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8, 'color': "000000"},
         'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': False, 'shrink_to_fit': False, 'indent': 0},
         'fill':       {'patternType': "solid", 'fgColor': colors_styling['table_name']},
         'border':     {'style': None, 'color': "000000"}
     },
 
+    {
+        'name':       'quote_line',
+        'font':       {'name': 'Calibri', 'bold': False, 'size': 8, 'color': "000000"},
+        'alignment':  {'horizontal': 'left', 'vertical': 'bottom', 'wrap_text': False, 'shrink_to_fit': False, 'indent': 0},
+        'fill':       {'patternType': None, 'fgColor': colors_styling['title_attributes']},
+        'border':     {'style': None, 'color': "000000"}
+    },
 
 ]
