@@ -4,7 +4,21 @@ from openpyxl.utils.cell import column_index_from_string
 from openpyxl.worksheet import worksheet
 import re
 from excelutils import headers, width_columns, formats
-from common_data import QuoteInfo
+from common_data import QuoteInfo, AttributeInfo, ParameterInfo
+
+
+def _try_string_to_number(number: str):
+    match number:
+        case int() | float() as num:
+            return num
+        case str() as num if num.isdigit():
+            return int(num)
+        case str() as num if num.replace(',', '', 1).replace('.', '', 1).isdigit():
+            return float(num.replace(",", ".", 1))
+        case str() as num if len(num) > 0:
+            return num.strip()
+        case _:
+            return ""
 
 
 # https://stackoverflow.com/questions/27133731/folding-multiple-rows-with-openpyxl
@@ -146,16 +160,56 @@ def create_quote_line(sheet: worksheet, quote_info: QuoteInfo, row: int):
     sheet.cell(row=row, column=column_index_from_string('F')).value = quote_info[1]
     sheet.cell(row=row, column=column_index_from_string('G')).value = quote_info[2]
     sheet.cell(row=row, column=column_index_from_string('H')).value = quote_info[3]
-    sheet.cell(row=row, column=column_index_from_string('I')).value = int(quote_info[4]) if quote_info[4].isdigit() else ""
+    sheet.cell(row=row, column=column_index_from_string('I')).value = int(quote_info[4]) if quote_info[
+        4].isdigit() else ""
     sheet.cell(row=row, column=column_index_from_string('J')).value = '++'
 
     range_decorating(sheet, row, ['E', 'F', 'G', 'H', 'I', 'J'], 'quote_line')
-    sheet.cell(row=row, column=column_index_from_string('I')).font = Font(name='Calibri', bold=False, size=8, color="000000")
+    sheet.cell(row=row, column=column_index_from_string('I')).font = Font(name='Calibri', bold=False, size=8,
+                                                                          color="000000")
     sheet.cell(row=row, column=column_index_from_string('I')).alignment = Alignment(horizontal='right')
     sheet.cell(row=row, column=column_index_from_string('J')).alignment = Alignment(horizontal='center')
+
 
 def put_quote_to_sheet(sheet: worksheet, quote_info: QuoteInfo, row: int):
     """ На лист sheet в строку row, пишет информацию о расценке quote_info.
      Присваивает группу """
     sheet.row_dimensions.group(row, row, outline_level=2)
     create_quote_line(sheet, quote_info, row)
+
+
+def put_attributes_to_sheet(sheet: worksheet, attributes: list[AttributeInfo], row: int, table_attributes: str):
+    """ На лист sheet в строку row, выводит значение атрибутов.  """
+    if len(attributes) > 0:
+        table_attributes_list = [x.strip() for x in table_attributes.split(',')]    # список атрибутов из шапки таблицы
+        attribute_titles = {x[1].strip(): x[2].strip() for x in attributes}         # словарь атрибут:значение
+        start_column_number = column_index_from_string('N')
+        for i, headers_attributes in enumerate(table_attributes_list):
+            value_out = attribute_titles.get(headers_attributes, " ")
+            sheet.cell(row=row, column=start_column_number + i).value = value_out
+            sheet.cell(row=row, column=start_column_number + i).style = 'line_table'
+
+
+def put_parameters_to_sheet(sheet: worksheet, parameters: dict[str: ParameterInfo], row: int, table_parameters: str):
+    """ На лист sheet в строку row, выводит значение атрибутов.  """
+    if len(parameters) > 0:
+        table_parameters_list = [x.strip() for x in table_parameters.split(',')]    # список параметров из шапки таблицы
+        # !!!
+        start_column_number = column_index_from_string('Q')
+        step = 0
+        for i, headers_attributes in enumerate(table_parameters_list):
+            values_out = parameters.get(headers_attributes, None)
+            if values_out:
+                column = i+step
+                sheet.cell(row=row, column=start_column_number + column).value = _try_string_to_number(values_out.get("left", "0"))
+                sheet.cell(row=row, column=start_column_number + column+1).value = _try_string_to_number(values_out.get("right", "0"))
+                sheet.cell(row=row, column=start_column_number + column+2).value = _try_string_to_number(values_out.get("measure", ""))
+                sheet.cell(row=row, column=start_column_number + column+3).value = _try_string_to_number(values_out.get("step", "0"))
+                sheet.cell(row=row, column=start_column_number + column+4).value = _try_string_to_number(values_out.get("type", "0"))
+                step += 4
+                for c in range(i+step+1):
+                    sheet.cell(row=row, column=start_column_number + c).style = 'line_table'
+
+
+
+

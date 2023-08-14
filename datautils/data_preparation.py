@@ -47,8 +47,13 @@ def get_parameters(file_name: str = None, file_path: str = None, sheet_name: str
         column_names = ["quote", "name", "left", "right", "measure", "step", "type"]
         c_types = {}  # "type": int,
         src_data.set_columns_name_type_column_data(column_names, c_types)
+        src_data.df.set_index(['quote'])
+        print(src_data.df.index)
+        print(src_data.df.head())
+
         # src_data.df.columns = column_names
         # print(src_data.df.info())
+
         return src_data
     return None
 
