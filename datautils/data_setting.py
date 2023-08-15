@@ -1,4 +1,4 @@
-print(f"begin ->> data_setting.py SourceData")
+# print(f"begin ->> data_setting.py SourceData")
 import sys
 import pandas
 import gc
@@ -78,6 +78,20 @@ class SourceData:
                     return str(src_value or "").strip()
         return ""
 
+    def printing_dataset_information(self):
+        # print(f"{self.df.info = }")
+        print(f"{self.df.index}")
+        print(f"{self.df.head(3)}")
+        # print(f"{self.df.memory_usage(index=True, deep=True)}")
+        print(f"memory: {self.df.memory_usage(index=True, deep=True).sum()} bytes")
+        print(f"{self.df.columns.values.tolist()}")
+        # print(f"{[*self.df]}")
+        # df_set = {*self.df}
+        # print(f"{df_set = }")
+        # print(f"{*self.df, = }")
+
+
+
 
 if __name__ == "__main__":
     # path = r"C:\Users\kazak.ke\PycharmProjects\Quotes_Parsing\output"
@@ -96,4 +110,4 @@ if __name__ == "__main__":
     gc.collect()
 
 
-print(f"end ->> data_setting.py SourceData")
+# print(f"end ->> data_setting.py SourceData")
